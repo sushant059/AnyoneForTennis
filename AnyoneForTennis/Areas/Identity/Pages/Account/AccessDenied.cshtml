@@ -1,0 +1,19 @@
+﻿@page
+@model AccessDeniedModel
+@{
+    ViewData["Title"] = "Access Denied";
+}
+
+<div class="d-flex flex-column justify-content-center align-items-center vh-100 text-center">
+    <h1 class="text-danger mb-3">
+        <i class="fa fa-exclamation-triangle"></i>
+        @ViewData["Title"]
+    </h1>
+    <p class="text-danger mb-4">
+        <i class="fa fa-ban"></i>
+        You do not have access to this resource.
+    </p>
+    <a asp-action="Index" class="btn btn-primary btn-lg">
+        <i class="fa fa-home"></i> Go to Home
+    </a>
+</div>

@@ -1,0 +1,59 @@
+﻿@model IEnumerable<AnyoneForTennis.Models.Enrollment>
+
+@{
+    ViewData["Title"] = "Enrolled Members";
+}
+
+<h1 class="mb-4">Enrolled Members</h1>
+<hr />
+
+<div class="table-responsive">
+    @if (!Model.Any())
+    {
+        <div class="col-12 text-center">
+            <div class="alert alert-warning" role="alert">
+                No Members Enrolled ....
+            </div>
+        </div>
+    }
+    else
+    {
+        <table class="table table-striped table-bordered table-hover bg-light">
+            <thead class="bg-dark text-light">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Member.FirstName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Member.LastName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Member.Email)
+                    </th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Member.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Member.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Member.Email)
+                        </td>
+                        <td class="text-center">
+                            <a class="btn btn-primary btn-sm me-2" asp-controller="Members" asp-action="Details" asp-route-id="@item.MemberId">
+                                <i class="fa fa-info-circle"></i> View Details
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }    
+</div>

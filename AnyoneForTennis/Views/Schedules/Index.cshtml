@@ -1,0 +1,74 @@
+﻿@model IEnumerable<AnyoneForTennis.Models.Schedule>
+
+@{
+    ViewData["Title"] = "Schedules";
+}
+
+<div class="container my-4">
+    <div class="row mb-4">
+        <div class="col">
+            <h1 class="text-center">@ViewData["Title"]</h1>
+        </div>
+    </div>
+    <hr />
+
+    @if (User.IsInRole("admin"))
+    {
+        <div class="row mb-4">
+            <div class="col text-end">
+                <a class="btn btn-info" asp-action="Create"><i class="fa fa-plus"></i> Create New Schedule</a>
+            </div>
+        </div>
+    }
+    <div class="table-responsive">
+        <table class="table table-striped table-hover bg-light">
+            <thead class="bg-dark text-light">
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Name)</th>
+                    <th>@Html.DisplayNameFor(model => model.Location)</th>
+                    <th>@Html.DisplayNameFor(model => model.Description)</th>
+                    <th>@Html.DisplayNameFor(model => model.ScheduledOn)</th>
+                    <th>@Html.DisplayNameFor(model => model.Coach)</th>
+                    <th></th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Location)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                        <td>@Html.DisplayFor(modelItem => item.ScheduledOn)</td>
+                        <td>
+                            <a class="text-info" asp-controller="Coaches" asp-action="Details" asp-route-id="@item.CoachId">
+                                @item.Coach.FirstName <i class="fa fa-eye"></i>
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            @if (User.IsInRole("admin") || User.IsInRole("coach"))
+                            {
+                                <a class="btn btn-outline-primary btn-sm" asp-controller="Enrollment" asp-action="GetEnrolledMembers" asp-route-id="@item.ScheduleId">
+                                    <i class="fa fa-users"></i> View Members
+                                </a>
+                            }
+                        </td>
+                        <td class="text-center">
+                            @if (User.IsInRole("admin"))
+                            {
+                                <a class="btn btn-success btn-sm" asp-action="Edit" asp-route-id="@item.ScheduleId"><i class="fa fa-pencil"></i> Edit</a>
+                                <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.ScheduleId"><i class="fa fa-trash"></i> Delete</a>
+                            }
+                            <a class="btn btn-primary btn-sm" asp-action="Details" asp-route-id="@item.ScheduleId"><i class="fa fa-info-circle"></i> Details</a>
+                            @if (User.IsInRole("member") && item.ScheduledOn > DateTime.Now)
+                            {
+                                <a class="btn btn-info btn-sm" asp-controller="Enrollment" asp-action="AddEnrollment" asp-route-id="@item.ScheduleId"><i class="fa fa-plus-circle"></i> Enroll</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

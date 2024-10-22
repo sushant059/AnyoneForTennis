@@ -1,0 +1,47 @@
+﻿@model IEnumerable<AnyoneForTennis.Models.Enrollment>
+
+@{
+    ViewData["Title"] = "Enrolled Schedules";
+}
+
+<h1 class="mb-4">Enrolled Schedules</h1>
+
+<div class="table-responsive">
+    @if (!Model.Any())
+    {
+        <div class="col-12 text-center">
+            <div class="alert alert-warning" role="alert">
+                No Enrollments in Schedules ....
+            </div>
+        </div>
+    }
+    else
+    {
+        <table class="table table-striped table-bordered table-hover bg-light">
+            <thead class="bg-dark text-light">
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Schedule.Name)</th>
+                    <th>@Html.DisplayNameFor(model => model.Schedule.Location)</th>
+                    <th>@Html.DisplayNameFor(model => model.Schedule.Description)</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Schedule.Name)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Schedule.Location)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Schedule.Description)</td>
+                        <td class="text-center">
+                            <a class="btn btn-primary btn-sm me-2" asp-controller="Schedules" asp-action="Details" asp-route-id="@item.ScheduleId">
+                                <i class="fa fa-bars"></i> Details
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        
+    }
+</div>

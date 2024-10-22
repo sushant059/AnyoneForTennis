@@ -1,0 +1,61 @@
+﻿@model AnyoneForTennis.Models.Schedule
+
+@{
+    ViewData["Title"] = "Delete Schedule";
+}
+
+<div class="container my-4">
+    <div class="row">
+        <div class="col text-center">
+            <h1>@ViewData["Title"]</h1>
+            <h3 class="text-danger">Are you sure you want to delete this?</h3>
+        </div>
+    </div>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h5>Schedule Details</h5>
+                </div>
+                <div class="card-body">
+                    <h4>Schedule</h4>
+                    <dl class="row">
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Name)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Name)</dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Location)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Location)</dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Description)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Description)</dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.ScheduledOn)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.ScheduledOn)</dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Coach)</dt>
+                        <dd class="col-sm-8">
+                            <a asp-controller="Coaches" asp-action="Details" asp-route-id="@Model?.CoachId">
+                                @Model?.Coach.FirstName <i class="fa fa-eye"></i>
+                            </a>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col text-center">
+            <form asp-action="Delete" class="d-inline">
+                <input type="hidden" asp-for="ScheduleId" />
+                <input type="submit" value="Delete" class="btn btn-danger" />
+            </form>
+            <a class="btn btn-secondary d-inline" asp-action="Index">
+                <i class="fa fa-arrow-left"></i> Back to List
+            </a>
+        </div>
+    </div>
+
+</div>
