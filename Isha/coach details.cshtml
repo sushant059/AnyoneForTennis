@@ -1,1 +1,64 @@
+@model AnyoneForTennis.Models.Coach
 
+@{
+    ViewData["Title"] = "Coach Details";
+}
+
+<div class="container my-4">
+    <div class="row">
+        <div class="col text-center">
+            <h1>@ViewData["Title"]</h1>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h5>Coach Information</h5>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        @* <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Photo)</dt> *@
+                        <dd class="col-12 text-center">
+                            @if (Model.Photo != null)
+                            {
+                                <img src="@Model.Photo" class="img-fluid rounded-circle" alt="Coach Photo" />
+                            }
+                            else
+                            {
+                                <img src="https://via.placeholder.com/150" class="img-fluid rounded-circle" alt="Placeholder Photo" />
+                            }
+                        </dd>
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.FirstName)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.FirstName)</dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.LastName)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.LastName)</dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.User!.Email)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.User!.Email)</dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Biography)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Biography)</dd>
+
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col text-center">
+            @if (User.IsInRole("admin"))
+            {
+                <a class="btn btn-success btn-lg" asp-action="Edit" asp-route-id="@Model?.CoachId">
+                    <i class="fa fa-pencil"></i> Edit Coach
+                </a>
+            }
+            <a class="btn btn-secondary btn-lg" asp-action="Index">
+                <i class="fa fa-arrow-left"></i> Back to List
+            </a>
+        </div>
+    </div>
+</div>
