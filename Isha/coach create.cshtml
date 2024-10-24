@@ -1,1 +1,87 @@
+@model AnyoneForTennis.ViewModels.RegisterCoachViewModel
+
+@{
+    ViewData["Title"] = "Create Coach";
+    var identityError = TempData["IdentityError"] as string;
+}
+
+<div class="container my-4">
+    <div class="row">
+        <div class="col text-center">
+            <h1>@ViewData["Title"]</h1>
+        </div>
+    </div>
+    <hr />
+
+    @if (!string.IsNullOrEmpty(identityError))
+    {
+        <div class="alert alert-danger text-center">
+            <i class="fa fa-exclamation-circle"></i> @identityError
+        </div>
+    }
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form asp-action="Create" class="shadow p-4 rounded bg-light">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                <div class="mb-3">
+                    <label asp-for="FirstName" class="form-label"></label>
+                    <input asp-for="FirstName" class="form-control" placeholder="Enter first name" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="LastName" class="form-label"></label>
+                    <input asp-for="LastName" class="form-control" placeholder="Enter last name" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Biography" class="form-label"></label>
+                    <textarea asp-for="Biography" class="form-control" rows="3" placeholder="Enter a brief biography"></textarea>
+                    <span asp-validation-for="Biography" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Photo" class="form-label"></label>
+                    <input asp-for="Photo" class="form-control" placeholder="Upload a photo URL" />
+                    <span asp-validation-for="Photo" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label"></label>
+                    <input asp-for="Email" class="form-control" type="email" placeholder="Enter email" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Password" class="form-label"></label>
+                    <input asp-for="Password" class="form-control" type="password" placeholder="Enter password" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="fa fa-check-circle"></i> Create Coach
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col text-center">
+            <a class="btn btn-secondary" asp-action="Index">
+                <i class="fa fa-arrow-left"></i> Back to List
+            </a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
 
